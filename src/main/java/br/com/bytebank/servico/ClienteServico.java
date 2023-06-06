@@ -21,6 +21,10 @@ public class ClienteServico {
     }
 
     public ClienteDTO criar(ClienteDTO clienteDTO) {
+        Cliente emanoel = new Cliente();
+        emanoel.setNome(clienteDTO.getNome());
+
+
         Cliente cliente = this.mapper.fromDTO(clienteDTO);
         return this.mapper.toDTO(this.repository.save(cliente));
     }
@@ -34,8 +38,9 @@ public class ClienteServico {
         return clientes.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
-    public List<Cliente> listarByDtNascimento() {
-        return this.repository.listarByDtNascimento();
+    public List<ClienteDTO> findByDtNascimento() {
+        List<Cliente> clientes = this.repository.listarByDtNascimento();
+        return clientes.stream().map(mapper::toDTO).collect(Collectors.toList());
     }
 
 }
